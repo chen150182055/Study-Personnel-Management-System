@@ -1,0 +1,411 @@
+@startuml
+class com.rain.controller.DeptController {
+- RainService rainservice
++ ModelAndView index2(ModelAndView)
++ String index2(String)
++ String index(Model,String)
++ String add(Model,Integer)
++ ModelAndView add(ModelAndView,Dept,Integer)
++ void delete(Integer)
+}
+class com.rain.domain.Job {
+- Integer id
+- String name
+- String remark
++ Integer getId()
++ void setId(Integer)
++ String getName()
++ void setName(String)
++ String getRemark()
++ void setRemark(String)
+}
+class com.rain.controller.EmployeeController {
+- RainService rainservice
++ ModelAndView index2(ModelAndView)
++ String index2(String)
++ String index(Model,String)
++ String add(Model,Integer)
++ ModelAndView add(ModelAndView,Employee,Integer)
++ void delete(Integer)
+}
+interface com.rain.dao.UserDao {
+~ List<User> get_List()
+~ List<User> get_LikeList(String)
+~ User get_login(String,String)
+~ void insert_Info(User)
+~ User get_Info(Integer)
+~ void update_Info(User)
+~ void delete_Info(Integer)
+}
+class com.rain.dao.provider.DeptDynaSqlProvider {
++ String insertDept(Dept)
++ String updateDept(Dept)
+}
+class com.rain.controller.CommonController {
++ String loginForm(String)
++ String index()
++ String welcome()
+}
+class com.rain.dao.provider.JobDynaSqlProvider {
++ String insertDept(Job)
++ String updateDept(Job)
+}
+class com.rain.controller.NoticeController {
+- RainService rainservice
++ ModelAndView index2(ModelAndView)
++ String index2(String)
++ String index(Model,String)
++ String add(Model,Integer)
++ ModelAndView add(ModelAndView,Notice,Integer)
++ void delete(Integer)
+}
+class com.rain.domain.Document {
+- Integer id
+- String title
+- String filename
+- String remark
+- String create_date
+- Integer user_id
+- MultipartFile file
+- User user
++ User getUser()
++ void setUser(User)
++ Integer getId()
++ void setId(Integer)
++ String getTitle()
++ void setTitle(String)
++ String getFilename()
++ void setFilename(String)
++ String getRemark()
++ void setRemark(String)
++ String getCreate_date()
++ void setCreate_date(String)
++ Integer getUser_id()
++ void setUser_id(Integer)
++ MultipartFile getFile()
++ void setFile(MultipartFile)
+}
+class com.rain.interceptor.AuthorizedInterceptor {
+- {static} String[] IGNORE_URI
++ void afterCompletion(HttpServletRequest,HttpServletResponse,Object,Exception)
++ void postHandle(HttpServletRequest,HttpServletResponse,Object,ModelAndView)
++ boolean preHandle(HttpServletRequest,HttpServletResponse,Object)
+}
+class com.rain.util.common.Constants {
++ {static} String USERTABLE
++ {static} String DEPTTABLE
++ {static} String JOBTABLE
++ {static} String EMPLOYEETABLE
++ {static} String NOTICETABLE
++ {static} String DOCUMENTTABLE
++ {static} String LOGIN
++ {static} String USER_SESSION
++ {static} int PAGE_DEFAULT_SIZE
+}
+class com.rain.dao.provider.EmployeeDynaSqlProvider {
++ String insert_Employee(Employee)
++ String update_Employee(Employee)
+}
+class com.rain.controller.UserController {
+- RainService rainservice
++ ModelAndView index2(ModelAndView)
++ ModelAndView logout(ModelAndView,HttpSession)
++ ModelAndView login(String,String,String,HttpSession,ModelAndView)
++ String index2(String)
++ String index(Model,String)
++ String add(Model,Integer)
++ ModelAndView add(ModelAndView,User,Integer)
++ void delete(Integer)
++ String update(Model,HttpSession)
++ ModelAndView update(ModelAndView,Model,HttpSession,User)
+}
+class com.rain.dao.provider.NoticeDynaSqlProvider {
++ String insert_Notice(Notice)
++ String update_Notice(Notice)
+}
+class com.rain.domain.Notice {
+- Integer id
+- String title
+- String content
+- String Create_date
+- Integer user_id
+- User user
++ Integer getId()
++ void setId(Integer)
++ String getTitle()
++ void setTitle(String)
++ String getContent()
++ void setContent(String)
++ String getCreate_date()
++ void setCreate_date(String)
++ Integer getUser_id()
++ void setUser_id(Integer)
++ User getUser()
++ void setUser(User)
+}
+class com.rain.controller.JobController {
+- RainService rainservice
++ ModelAndView index2(ModelAndView)
++ String index2(String)
++ String index(Model,String)
++ String add(Model,Integer)
++ ModelAndView add(ModelAndView,Job,Integer)
++ void delete(Integer)
+}
+interface com.rain.dao.DeptDao {
+~ List<Dept> selectAllDept()
+~ List<Dept> selectLikeAllDept(String)
+~ void save(Dept)
+~ Dept get_Info(Integer)
+~ void update_Info(Dept)
+~ void delete_Info(Integer)
+}
+class com.rain.domain.User {
+- Integer id
+- String username
+- String loginname
+- String password
+- Integer status
+- String create_date
++ Integer getId()
++ void setId(Integer)
++ String getUsername()
++ void setUsername(String)
++ String getLoginname()
++ void setLoginname(String)
++ String getPassword()
++ void setPassword(String)
++ Integer getStatus()
++ void setStatus(Integer)
++ String getCreate_date()
++ void setCreate_date(String)
+}
+interface com.rain.dao.DocumentDao {
+~ List<Document> get_List()
+~ List<Document> get_LikeList(String)
+~ void insert_Info(Document)
+~ Document get_Info(Integer)
+~ void update_Info(Document)
+~ void delete_Info(Integer)
+}
+class com.rain.controller.DocumentController {
+- RainService rainservice
++ ModelAndView index2(ModelAndView)
++ String index2(String)
++ String index(Model,String)
++ String add(Model,Integer)
++ ModelAndView add(ModelAndView,Document,Integer,HttpSession)
++ void delete(Integer)
+}
+interface com.rain.service.RainService {
+~ List<Dept> findAllDept(String)
+~ void addDept(Dept)
+~ Dept get_Info(Integer)
+~ void update_Info(Dept)
+~ void delete_Info(Integer)
+~ List<Dept> findAllDept()
+~ List<Job> findAllJob()
+~ List<Job> findAllJob(String)
+~ Job get_JobInfo(Integer)
+~ void update_JobInfo(Job)
+~ void insert_JobInfo(Job)
+~ void delete_JobInfo(Integer)
+~ List<Employee> get_EmployeeList()
+~ List<Employee> get_EmployeeLikeList(String)
+~ Employee get_EmployeeInfo(Integer)
+~ void update_EmployeeInfo(Employee)
+~ void insert_EmployeeInfo(Employee)
+~ void delete_EmployeeInfo(Integer)
+~ Employee login2(String,String)
+~ List<Notice> get_NoticeList()
+~ List<Notice> get_NoticeLikeList(String)
+~ Notice get_NoticeInfo(Integer)
+~ void update_NoticeInfo(Notice)
+~ void insert_NoticeInfo(Notice)
+~ void delete_NoticeInfo(Integer)
+~ List<Document> get_DocumentList()
+~ List<Document> get_DocumentLikeList(String)
+~ Document get_DocumentInfo(Integer)
+~ void update_DocumentInfo(Document)
+~ void insert_DocumentInfo(Document)
+~ void delete_DocumentInfo(Integer)
+~ User login(String,String)
+~ List<User> get_UserList()
+~ List<User> get_UserLikeList(String)
+~ User get_UserInfo(Integer)
+~ void update_UserInfo(User)
+~ void insert_UserInfo(User)
+~ void delete_UserInfo(Integer)
+}
+interface com.rain.dao.JobDao {
+~ List<Job> get_List()
+~ List<Job> get_LikeList(String)
+~ void insert_Info(Job)
+~ Job get_Info(Integer)
+~ void update_Info(Job)
+~ void delete_Info(Integer)
+}
+interface com.rain.dao.EmployeeDao {
+~ List<Employee> get_List()
+~ List<Employee> get_LikeList(String)
+~ void insert_Info(Employee)
+~ Employee get_Info(Integer)
+~ void update_Info(Employee)
+~ void delete_Info(Integer)
+~ Employee get_ByInfo(String,String)
+}
+class com.rain.domain.Employee {
+- Integer id
+- Integer job_id
+- Integer dept_id
+- Dept dept
+- Job job
+- String name
+- String card_id
+- String address
+- String post_code
+- String tel
+- String phone
+- String qq_num
+- String email
+- Integer sex
+- String party
+- String birthday
+- String race
+- String education
+- String speciality
+- String hobby
+- String remark
+- String create_date
+- String password
++ Integer getJob_id()
++ void setJob_id(Integer)
++ Integer getDept_id()
++ void setDept_id(Integer)
++ String getPassword()
++ void setPassword(String)
++ Integer getId()
++ void setId(Integer)
++ Dept getDept()
++ void setDept(Dept)
++ Job getJob()
++ void setJob(Job)
++ String getName()
++ void setName(String)
++ String getCard_id()
++ void setCard_id(String)
++ String getAddress()
++ void setAddress(String)
++ String getPost_code()
++ void setPost_code(String)
++ String getTel()
++ void setTel(String)
++ String getPhone()
++ void setPhone(String)
++ String getQq_num()
++ void setQq_num(String)
++ String getEmail()
++ void setEmail(String)
++ Integer getSex()
++ void setSex(Integer)
++ String getParty()
++ void setParty(String)
++ String getBirthday()
++ void setBirthday(String)
++ String getRace()
++ void setRace(String)
++ String getEducation()
++ void setEducation(String)
++ String getSpeciality()
++ void setSpeciality(String)
++ String getHobby()
++ void setHobby(String)
++ String getRemark()
++ void setRemark(String)
++ String getCreate_date()
++ void setCreate_date(String)
+}
+class com.rain.dao.provider.DocumentDynaSqlProvider {
++ String insert(Document)
++ String update(Document)
+}
+class com.rain.domain.Dept {
+- Integer id
+- String name
+- String remark
++ String getRemark()
++ void setRemark(String)
++ Integer getId()
++ void setId(Integer)
++ String getName()
++ void setName(String)
+}
+interface com.rain.dao.NoticeDao {
+~ List<Notice> get_List()
+~ List<Notice> get_LikeList(String)
+~ void insert_Info(Notice)
+~ Notice get_Info(Integer)
+~ void update_Info(Notice)
+~ void delete_Info(Integer)
+}
+class com.rain.service.impl.RainServiceImpl {
+- DeptDao deptDao
+- JobDao jobDao
+- EmployeeDao employeedao
+- NoticeDao noticedao
+- DocumentDao documentdao
+- UserDao userdao
++ List<Dept> findAllDept()
++ void addDept(Dept)
++ Dept get_Info(Integer)
++ void update_Info(Dept)
++ void delete_Info(Integer)
++ List<Dept> findAllDept(String)
++ List<Job> findAllJob()
++ List<Job> findAllJob(String)
++ Job get_JobInfo(Integer)
++ void update_JobInfo(Job)
++ void insert_JobInfo(Job)
++ void delete_JobInfo(Integer)
++ List<Employee> get_EmployeeList()
++ List<Employee> get_EmployeeLikeList(String)
++ Employee get_EmployeeInfo(Integer)
++ void update_EmployeeInfo(Employee)
++ void insert_EmployeeInfo(Employee)
++ void delete_EmployeeInfo(Integer)
++ List<Notice> get_NoticeList()
++ List<Notice> get_NoticeLikeList(String)
++ Notice get_NoticeInfo(Integer)
++ void update_NoticeInfo(Notice)
++ void insert_NoticeInfo(Notice)
++ void delete_NoticeInfo(Integer)
++ List<Document> get_DocumentList()
++ List<Document> get_DocumentLikeList(String)
++ Document get_DocumentInfo(Integer)
++ void update_DocumentInfo(Document)
++ void insert_DocumentInfo(Document)
++ void delete_DocumentInfo(Integer)
++ User login(String,String)
++ List<User> get_UserList()
++ List<User> get_UserLikeList(String)
++ User get_UserInfo(Integer)
++ void update_UserInfo(User)
++ void insert_UserInfo(User)
++ void delete_UserInfo(Integer)
++ Employee login2(String,String)
+}
+class com.rain.dao.provider.UserDynaSqlProvider {
++ String insert_Notice(User)
++ String update_Notice(User)
+}
+
+
+java.io.Serializable <|.. com.rain.domain.Job
+java.io.Serializable <|.. com.rain.domain.Document
+org.springframework.web.servlet.HandlerInterceptor <|.. com.rain.interceptor.AuthorizedInterceptor
+java.io.Serializable <|.. com.rain.domain.Notice
+java.io.Serializable <|.. com.rain.domain.User
+com.rain.domain.Serializable <|.. com.rain.domain.Employee
+java.io.Serializable <|.. com.rain.domain.Dept
+com.rain.service.RainService <|.. com.rain.service.impl.RainServiceImpl
+@enduml
